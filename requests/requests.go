@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-func Solicitud(url string, linea string, timeout float64) (string, int) {
+func Solicitud(url string, linea string, timeout int) (string, int) {
 	cliente := http.Client{Timeout: time.Second * time.Duration(timeout)}
 
 	urlexp := fmt.Sprintf("%s/%s", url, linea) // url que se prueba

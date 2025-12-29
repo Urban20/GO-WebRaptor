@@ -10,26 +10,26 @@ import (
 
 const RUTA = "diccionario_txt/"
 
-var timeout_f = flag.Float64("t", 5, "tiempo de espera de cada solicitud")
+var timeout_f = flag.Int("t", 5, "tiempo de espera de cada solicitud")
 var hilos_f = flag.Int("hl", 500, "concurrencia")
 var url_f = flag.String("url", "", "url del sitio a analizar")
 var dic_f = flag.String("dic", "", "diccionario a utilizar en formato.txt")
-
-var timeout = *timeout_f
-var hilos = *hilos_f
-var url = *url_f
-var diccionario = *dic_f
 
 func main() {
 
 	flag.Parse()
 
+	timeout := *timeout_f
+	hilos := *hilos_f
+	url := *url_f
+	diccionario := *dic_f
+
 	limite := make(chan struct{}, hilos)
 	wg := sync.WaitGroup{}
 	dic_ruta := fmt.Sprintf("%s/%s", RUTA, diccionario)
-	diccionario := diccionarios.Leer(dic_ruta)
+	dic := diccionarios.Leer(dic_ruta)
 
-	for linea := range diccionario {
+	for linea := range dic {
 		limite <- struct{}{}
 		wg.Add(1)
 
