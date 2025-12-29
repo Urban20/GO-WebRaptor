@@ -1,6 +1,7 @@
 package main
 
 import (
+	archivo "GoWebRaptor/archivos"
 	"GoWebRaptor/diccionarios"
 	"GoWebRaptor/requests"
 	"flag"
@@ -36,7 +37,12 @@ func main() {
 	limite := make(chan struct{}, hilos)
 	wg := sync.WaitGroup{}
 	dic_ruta := fmt.Sprintf("%s/%s", RUTA, diccionario)
-	dic := diccionarios.Leer(dic_ruta)
+	dic, dicerr := diccionarios.Leer(dic_ruta)
+
+	if dicerr != nil {
+		fmt.Println(dicerr)
+		return
+	}
 
 	for linea := range dic {
 		limite <- struct{}{}
@@ -47,11 +53,19 @@ func main() {
 			defer wg.Done()
 			url_encontrado, codigo := requests.Solicitud(url, linea, timeout, usr)
 			if codigo != 0 {
-
-				fmt.Printf("%s status >> %d\n", url_encontrado, codigo)
+				formato := fmt.Sprintf("%s status >> %d\n", url_encontrado, codigo)
+				fmt.Println(formato)
+				archerr := archivo.Archivar(formato)
+				if archerr != nil {
+					fmt.Println(archerr)
+					return
+				}
 			}
 
 		}()
 	}
 	wg.Wait()
+	fmt.Printf("urls guardadas en %s\n", archivo.DIRECTORIOS)
+	fmt.Print("fuzeo finalizado. ENTER para finalizar")
+	fmt.Scanln()
 }

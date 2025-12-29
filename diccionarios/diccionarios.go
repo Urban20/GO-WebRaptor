@@ -2,17 +2,25 @@ package diccionarios
 
 import (
 	"bufio"
+	"errors"
 	"os"
+	"regexp"
 )
 
-func Leer(diccionario string) chan string {
-
+func Leer(diccionario string) (chan string, error) {
 	linea := make(chan string)
+
+	match, marcherr := regexp.Match(`\w+\.txt$`, []byte(diccionario))
+
+	if marcherr != nil || !match {
+		return linea, errors.New("diccionario invalido")
+	}
+
 	arch, archerr := os.Open(diccionario)
 
 	if archerr != nil {
 
-		panic(archerr)
+		return linea, archerr
 	}
 
 	go func() {
@@ -26,6 +34,6 @@ func Leer(diccionario string) chan string {
 		}
 	}()
 
-	return linea
+	return linea, nil
 
 }
