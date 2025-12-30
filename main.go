@@ -29,7 +29,7 @@ reescrito en Golang`
 
 func main() {
 	flag.Parse()
-	fmt.Print(LOGO + "\n\n")
+	fmt.Print("\033[0;35m" + LOGO + "\n\n" + "\033[0m")
 
 	timeout := *timeout_f
 	hilos := *hilos_f
