@@ -19,9 +19,12 @@ var dic_f = flag.String("dic", "", "diccionario a utilizar en formato.txt")
 var usrAG = flag.String("usr", usag_default, "user-agent a utilizar")
 
 const LOGO = ` 
-··············
-:GO-WebRaptor:
-··············
+                                                       
+ _____         _ _ _     _   _____         _           
+|   __|___ ___| | | |___| |_| __  |___ ___| |_ ___ ___ 
+|  |  | . |___| | | | -_| . |    -| .'| . |  _| . |  _|
+|_____|___|   |_____|___|___|__|__|__,|  _|_| |___|_|  
+                                      |_|              
 reescrito en Golang`
 
 func main() {
