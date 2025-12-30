@@ -15,7 +15,7 @@ var usag_default string = "Chrome/51.0.2704.106 Safari/537.36 OPR/38.0.2220.41"
 var timeout_f = flag.Int("t", 5, "tiempo de espera de cada solicitud")
 var hilos_f = flag.Int("hl", 500, "concurrencia")
 var url_f = flag.String("url", "", "url del sitio a analizar")
-var dic_f = flag.String("dic", "", "diccionario a utilizar en formato.txt")
+var dic_f = flag.String("dic", "", "ruta del diccionario a utilizar en formato.txt")
 var usrAG = flag.String("usr", usag_default, "user-agent a utilizar")
 var subdom = flag.Bool("sd", false, "habilita la busqueda de subdominios")
 
@@ -41,8 +41,8 @@ func main() {
 
 	limite := make(chan struct{}, hilos)
 	wg := sync.WaitGroup{}
-	dic_ruta := fmt.Sprintf("%s/%s", RUTA, diccionario)
-	dic, dicerr := diccionarios.Leer(dic_ruta)
+
+	dic, dicerr := diccionarios.Leer(diccionario)
 
 	if dicerr != nil {
 		fmt.Println(dicerr)
