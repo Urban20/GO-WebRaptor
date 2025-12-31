@@ -9,7 +9,7 @@ NOTA IMPORTANTE: utilizar con cuidado, el uso inadecuado puede resultar en el bl
 ## Objetivo:
 mayor estabilidad, rendimiento y velocidad 
 
-## Flags imprementadas:
+## Flags implementadas:
 ```
 -dic string
         diccionario a utilizar en formato.txt
